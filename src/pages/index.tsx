@@ -1,13 +1,19 @@
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from 'next/link'
+import Head from "next/head";
+import { useState } from "react";
+
+import { Handbag } from "@phosphor-icons/react";
 import Stripe from "stripe";
+import { stripe } from "@/lib/stripe";
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 
-import { stripe } from "@/lib/stripe";
-import { HomeContainer, Product } from "@/styles/pages/home";
-import Head from "next/head";
+import ArrowLeft from "./components/ArrowLeft";
+import ArrowRight from "./components/ArrowRight";
+
+import { FooterProduct, HomeContainer, Product } from "@/styles/pages/home";
 
 interface HomeProps {
   products: {
@@ -19,13 +25,32 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
-  const [sliderRef] = useKeenSlider({
-    slides: {
-      perView: 2.5,
-      spacing: 48,
+  const [currentSlider, setCurrentSlider] = useState(0)
+  const [loaded, setLoaded] = useState(false)
 
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    mode: "free-snap",
+    slides: {
+      origin: "center",
+      perView: 2,
+      spacing: 48,
+    },
+    slideChanged(slider) {
+      setCurrentSlider(slider.track.details.rel)
+    },
+    created() {
+      setLoaded(true)
     }
   })
+
+  function handleArrowLeft(e: any) {
+    e.stopPropagation() || instanceRef.current?.prev()
+  }
+
+  function handleArrowRight(e: any) {
+    e.stopPropagation() || instanceRef.current?.next()
+  }
 
   return (
     <>
@@ -40,8 +65,9 @@ export default function Home({ products }: HomeProps) {
               key={product.id}
               href={`/product/${product.id}`}
               prefetch={false}
+              className="keen-slider__slide"
             >
-              <Product className="keen-slider__slide">
+              <Product>
                 <Image
                   src={product.imageUrl}
                   width={520}
@@ -50,15 +76,36 @@ export default function Home({ products }: HomeProps) {
                   priority
                 />
 
-                <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
-                </footer>
+                <FooterProduct>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </div>
+                  <button>
+                    <Handbag size={32} />
+                  </button>
+                </FooterProduct>
               </Product>
             </Link>
           )
         })}
       </HomeContainer>
+
+      {loaded && instanceRef.current && (
+        <>
+          <ArrowLeft
+            onHandleArrowLeft={handleArrowLeft}
+            disabled={currentSlider === 0}
+          />
+
+          <ArrowRight
+            onHandleArrowRight={handleArrowRight}
+            disabled={
+              currentSlider === instanceRef.current.track.details.slides.length - 1
+            }
+          />
+        </>
+      )}
     </>
   )
 }
