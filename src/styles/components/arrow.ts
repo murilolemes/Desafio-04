@@ -1,6 +1,6 @@
-import { styled } from "..";
+import { css, styled } from "..";
 
-export const ContainerArrowLeft = styled('button', {
+export const ContainerArrow = styled('button', {
   width: '8.5rem',
   height: '100vh',
   background: 'linear-gradient(90deg, $gray900 0%, transparent 100%)',
@@ -17,7 +17,15 @@ export const ContainerArrowLeft = styled('button', {
   },
 
   '&:disabled': {
-    opacity: 0.6,
-    cursor: 'not-allowed'
+    display: 'none',
+  },
+
+  variants: {
+    right: {
+      true: {
+        background: 'linear-gradient(90deg, transparent 0%, $gray900 100%)',
+        right: 0,
+      },
+    }
   }
 })

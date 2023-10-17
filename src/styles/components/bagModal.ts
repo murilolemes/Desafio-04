@@ -14,6 +14,9 @@ export const Content = styled(Dialog.Content, {
   background: '$gray800',
   padding: '4.5rem 3rem 3rem',
 
+  display: 'flex',
+  flexDirection: 'column',
+
   position: 'absolute',
   top: 0,
   right: 0,
@@ -36,9 +39,16 @@ export const CloseButton = styled(Dialog.Close, {
   alignItems: 'center',
   justifyContent: 'center',
 
+  cursor: 'pointer',
+
   position: 'absolute',
   top: 24,
   right: 24,
+
+  '&:hover': {
+    color: '$gray300',
+    transition: 'color 0.2s'
+  }
 })
 
 export const BagContainer = styled('div', {
@@ -47,10 +57,9 @@ export const BagContainer = styled('div', {
   gap: '1.5rem',
 })
 
-export const BagContent = styled('div', {
+export const BagProduct = styled('div', {
   display: 'flex',
   gap: '1.25rem',
-  border: '1px solid red',
 })
 
 export const ImageContainer = styled('div', {
@@ -77,7 +86,12 @@ export const BagDetails = styled('div', {
 
   p: {
     fontSize: '$md',
+    color: '$gray100',
     lineHeight: 1.6,
+  },
+
+  'p:first-child': {
+    color: '$gray300',
   },
 
   button: {
@@ -85,6 +99,7 @@ export const BagDetails = styled('div', {
     background: 'transparent',
     color: '$green500',
     border: 0,
+
     fontSize: '1rem',
     fontWeight: 'bold',
     cursor: 'pointer',
@@ -96,4 +111,51 @@ export const BagDetails = styled('div', {
   }
 })
 
-export const FooterBag = styled('footer', {})
+export const FooterBag = styled('footer', {
+  marginTop: 'auto',
+
+  div: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.5rem',
+
+    'p:first-child': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      color: '$gray100',
+      fontSize: '1rem',
+
+      span: {
+        fontSize: '$md',
+        color: '$gray300',
+      }
+    },
+
+    'p:last-child': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      color: '$gray100',
+      fontSize: '$md',
+      fontWeight: 'bold',
+
+      span: {
+        fontSize: '$xl',
+      }
+    }
+  },
+
+  button: {
+    width: '100%',
+    fontSize: '$md',
+    fontWeight: 'bold',
+    color: '$white',
+    background: '$green500',
+
+    padding: '1.25rem 0',
+    border: 0,
+    borderRadius: 8,
+    marginTop: '3rem',
+
+    cursor: 'pointer',
+  }
+})

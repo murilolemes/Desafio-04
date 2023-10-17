@@ -25,11 +25,19 @@ export default function Success({ customerName, product }: SuccessProps) {
       </Head>
 
       <SuccessContainer>
-        <h1>Compra efetuada!</h1>
+        <div>
+          <ImageContainer>
+            <Image src={product.imageUrl} width={120} height={110} alt="" priority />
+          </ImageContainer>
+          <ImageContainer>
+            <Image src={product.imageUrl} width={120} height={110} alt="" priority />
+          </ImageContainer>
+          <ImageContainer>
+            <Image src={product.imageUrl} width={120} height={110} alt="" priority />
+          </ImageContainer>
+        </div>
 
-        <ImageContainer>
-          <Image src={product.imageUrl} width={120} height={110} alt="" priority />
-        </ImageContainer>
+        <h1>Compra efetuada!</h1>
 
         <p>
           Uhuul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho de sua casa.

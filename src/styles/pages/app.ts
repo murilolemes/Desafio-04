@@ -17,4 +17,15 @@ export const Header = styled('header', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+
+  variants: {
+    pathName: {
+      true: {
+        justifyContent: 'center',
+        button: {
+          display: 'none'
+        }
+      }
+    }
+  }
 })

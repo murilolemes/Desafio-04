@@ -1,4 +1,4 @@
-import { BagContainer, BagContent, BagDetails, CloseButton, Content, FooterBag, ImageContainer, OverLay, Title } from "@/styles/components/bagModal";
+import { BagContainer, BagDetails, BagProduct, CloseButton, Content, FooterBag, ImageContainer, OverLay, Title } from "@/styles/components/bagModal";
 import { X } from "@phosphor-icons/react";
 import * as Dialog from "@radix-ui/react-dialog";
 
@@ -11,7 +11,7 @@ export default function BagModal() {
         <CloseButton><X size={24} /></CloseButton>
 
         <BagContainer>
-          <BagContent>
+          <BagProduct>
             <ImageContainer>
             </ImageContainer>
 
@@ -20,9 +20,9 @@ export default function BagModal() {
               <p><strong>R$ 79,90</strong></p>
               <button>Remover</button>
             </BagDetails>
-          </BagContent>
+          </BagProduct>
 
-          <BagContent>
+          <BagProduct>
             <ImageContainer>
             </ImageContainer>
 
@@ -31,9 +31,9 @@ export default function BagModal() {
               <p><strong>R$ 79,90</strong></p>
               <button>Remover</button>
             </BagDetails>
-          </BagContent>
+          </BagProduct>
 
-          <BagContent>
+          <BagProduct>
             <ImageContainer>
             </ImageContainer>
 
@@ -42,16 +42,16 @@ export default function BagModal() {
               <p><strong>R$ 79,90</strong></p>
               <button>Remover</button>
             </BagDetails>
-          </BagContent>
+          </BagProduct>
 
-          <FooterBag>
-            <div>
-              <p>Quantidade <span>3 itens</span></p>
-              <p>Valor total <span>R$ 270,00</span></p>
-            </div>
-            <button>Finalizar compra</button>
-          </FooterBag>
         </BagContainer>
+        <FooterBag>
+          <div>
+            <p>Quantidade <span>3 itens</span></p>
+            <p>Valor total <span>R$ 270,00</span></p>
+          </div>
+          <button>Finalizar compra</button>
+        </FooterBag>
       </Content>
     </Dialog.Portal>
   )

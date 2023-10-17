@@ -10,10 +10,8 @@ import { stripe } from "@/lib/stripe";
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 
-import ArrowLeft from "./components/ArrowLeft";
-import ArrowRight from "./components/ArrowRight";
-
 import { FooterProduct, HomeContainer, Product } from "@/styles/pages/home";
+import Arrow from "./components/Arrow";
 
 interface HomeProps {
   products: {
@@ -93,16 +91,14 @@ export default function Home({ products }: HomeProps) {
 
       {loaded && instanceRef.current && (
         <>
-          <ArrowLeft
-            onHandleArrowLeft={handleArrowLeft}
+          <Arrow
+            onHandleArrow={handleArrowLeft}
             disabled={currentSlider === 0}
           />
-
-          <ArrowRight
-            onHandleArrowRight={handleArrowRight}
-            disabled={
-              currentSlider === instanceRef.current.track.details.slides.length - 1
-            }
+          <Arrow
+            onHandleArrow={handleArrowRight}
+            disabled={currentSlider === instanceRef.current.track.details.slides.length - 1}
+            right
           />
         </>
       )}
