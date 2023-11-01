@@ -6,28 +6,52 @@ import { useState } from 'react'
 import axios from 'axios'
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
+import { useShoppingCart } from 'use-shopping-cart'
 
-import { ImageContainer, ProductContainer, ProductDetails } from '@/styles/pages/product'
+import {
+  ImageContainer,
+  ProductContainer,
+  ProductDetails,
+} from '@/styles/pages/product'
+
+interface Product {
+  id: string
+  name: string
+  imageUrl: string
+  price: number
+}
 
 interface ProductProps {
   product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    description: string;
-    defaultPriceId: string;
+    id: string
+    name: string
+    imageUrl: string
+    price: number
+    description: string
+    defaultPriceId: string
   }
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+  const { addItem } = useShoppingCart()
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
   const { isFallback } = useRouter()
 
   if (isFallback) {
-    return (
-      <h2>Loading...</h2>
-    )
+    return <h2>Loading...</h2>
+  }
+
+  function handleAddProductBag(product: Product) {
+    const { id, imageUrl, name, price } = product
+
+    addItem({
+      id,
+      image: imageUrl,
+      name,
+      price,
+      currency: 'BRL',
+    })
   }
 
   async function handleBuyProduct() {
@@ -60,7 +84,7 @@ export default function Product({ product }: ProductProps) {
             src={product.imageUrl}
             width={520}
             height={480}
-            alt=''
+            alt=""
             priority
           />
         </ImageContainer>
@@ -69,7 +93,7 @@ export default function Product({ product }: ProductProps) {
           <h1>{product.name}</h1>
           <span>{product.price}</span>
           <p>{product.description}</p>
-          <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
+          <button onClick={() => handleAddProductBag(product)}>
             Colocar na sacola
           </button>
         </ProductDetails>
@@ -81,11 +105,18 @@ export default function Product({ product }: ProductProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: true
+    fallback: true,
   }
 }
 
-export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
+  params,
+}) => {
+  if (!params) {
+    return {
+      props: {},
+    }
+  }
   const productId = params.id
 
   const product = await stripe.products.retrieve(productId, {
@@ -103,10 +134,10 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
         price: new Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL',
-        }).format(price.unit_amount / 100),
+        }).format(Number(price.unit_amount) / 100),
         description: product.description,
         defaultPriceId: price.id,
-      }
+      },
     },
     revalidate: 60 * 60 * 1, // 1 hour
   }

@@ -17,9 +17,11 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "stripe": "^13.8.0"
+    "stripe": "^13.8.0",
+    "use-shopping-cart": "^3.1.8"
   },
   "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

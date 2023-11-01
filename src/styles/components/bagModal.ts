@@ -27,7 +27,7 @@ export const Title = styled(Dialog.Title, {
   fontSize: '$lg',
   fontWeight: 'bold',
   color: '$gray100',
-  marginBottom: '2rem'
+  marginBottom: '2rem',
 })
 
 export const CloseButton = styled(Dialog.Close, {
@@ -47,14 +47,31 @@ export const CloseButton = styled(Dialog.Close, {
 
   '&:hover': {
     color: '$gray300',
-    transition: 'color 0.2s'
-  }
+    transition: 'color 0.2s',
+  },
 })
 
 export const BagContainer = styled('div', {
+  height: '100%',
+
   display: 'flex',
   flexDirection: 'column',
   gap: '1.5rem',
+  paddingRight: '0.25rem',
+  marginBottom: '0.5rem',
+
+  overflowY: 'auto',
+  scrollbarWidth: 1,
+
+  '&::-webkit-scrollbar-track': {
+    backgroundColor: '$gray900',
+  },
+  '&::-webkit-scrollbar': {
+    width: 2,
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: '$gray500',
+  },
 })
 
 export const BagProduct = styled('div', {
@@ -76,10 +93,12 @@ export const ImageContainer = styled('div', {
 
   img: {
     objectFit: 'cover',
-  }
+  },
 })
 
 export const BagDetails = styled('div', {
+  width: '100%',
+
   display: 'flex',
   flexDirection: 'column',
   gap: '0.5rem',
@@ -94,21 +113,38 @@ export const BagDetails = styled('div', {
     color: '$gray300',
   },
 
-  button: {
-    width: 'fit-content',
-    background: 'transparent',
-    color: '$green500',
-    border: 0,
+  div: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
 
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    cursor: 'pointer',
+    button: {
+      width: 'fit-content',
+      background: 'transparent',
+      color: '$green500',
+      border: 0,
 
-    '&:hover': {
-      color: '$green300',
-      transition: 'color 0.2s'
-    }
-  }
+      fontSize: '1rem',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+
+      '&:hover': {
+        color: '$green300',
+        transition: 'color 0.2s',
+      },
+    },
+
+    p: {
+      fontSize: '0.625rem',
+      color: '$gray500',
+
+      span: {
+        fontSize: '0.75rem',
+        lineHeight: 1,
+        color: '$gray300',
+      },
+    },
+  },
 })
 
 export const FooterBag = styled('footer', {
@@ -122,26 +158,30 @@ export const FooterBag = styled('footer', {
     'p:first-child': {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
+
       color: '$gray100',
       fontSize: '1rem',
 
       span: {
         fontSize: '$md',
         color: '$gray300',
-      }
+      },
     },
 
     'p:last-child': {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
+
       color: '$gray100',
       fontSize: '$md',
       fontWeight: 'bold',
 
       span: {
         fontSize: '$xl',
-      }
-    }
+      },
+    },
   },
 
   button: {
@@ -157,5 +197,15 @@ export const FooterBag = styled('footer', {
     marginTop: '3rem',
 
     cursor: 'pointer',
-  }
+
+    '&:not(:disabled):hover': {
+      background: '$green300',
+      transition: 'background 0.2s',
+    },
+
+    '&:disabled': {
+      opacity: 0.6,
+      cursor: 'not-allowed',
+    },
+  },
 })

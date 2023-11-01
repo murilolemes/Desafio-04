@@ -1,4 +1,4 @@
-import { css, styled } from "..";
+import { styled } from '..'
 
 export const ContainerArrow = styled('button', {
   width: '8.5rem',
@@ -13,7 +13,7 @@ export const ContainerArrow = styled('button', {
 
   '&:not(:disabled):hover': {
     color: '$white',
-    transition: '0.2s'
+    transition: '0.2s',
   },
 
   '&:disabled': {
@@ -26,6 +26,6 @@ export const ContainerArrow = styled('button', {
         background: 'linear-gradient(90deg, transparent 0%, $gray900 100%)',
         right: 0,
       },
-    }
-  }
+    },
+  },
 })

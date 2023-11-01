@@ -1,4 +1,4 @@
-import { styled } from "..";
+import { styled } from '..'
 
 export const ContainerButtonBag = styled('button', {
   padding: '0.75rem',
@@ -18,7 +18,6 @@ export const ContainerButtonBag = styled('button', {
 
   span: {
     width: 'calc(1.5rem + 3px)',
-    // height: 'calc(1.5rem + 3px)',
     color: '$white',
     background: '$green500',
     borderRadius: '50%',
@@ -50,7 +49,7 @@ export const ContainerButtonBag = styled('button', {
     cursor: 'not-allowed',
 
     span: {
-      display: 'none'
-    }
-  }
+      display: 'none',
+    },
+  },
 })

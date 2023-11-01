@@ -1,10 +1,8 @@
-import { styled } from "..";
+import { styled } from '..'
 
 export const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
   minHeight: '100vh',
 })
 
@@ -23,9 +21,9 @@ export const Header = styled('header', {
       true: {
         justifyContent: 'center',
         button: {
-          display: 'none'
-        }
-      }
-    }
-  }
+          display: 'none',
+        },
+      },
+    },
+  },
 })
