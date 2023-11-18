@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from '@phosphor-icons/react'
+import { useState } from 'react'
 
 import { useShoppingCart } from 'use-shopping-cart'
 
@@ -15,20 +16,17 @@ import {
   OverLay,
   Title,
 } from '@/styles/components/bagModal'
+import axios from 'axios'
 
 export default function BagModal() {
   const cart = useShoppingCart()
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
 
-  const {
-    formattedTotalPrice,
-    cartCount,
-    cartDetails,
-    removeItem,
-    redirectToCheckout,
-    stripe,
-  } = cart
+  const { formattedTotalPrice, cartCount, cartDetails, removeItem, clearCart } =
+    cart
 
-  console.log(stripe)
+  const products = Object.values(cartDetails ?? {})
 
   const Items = () => {
     if (cartCount && cartCount > 1) {
@@ -39,9 +37,24 @@ export default function BagModal() {
   }
 
   async function handleCheckout() {
-    await redirectToCheckout()
+    try {
+      const response = await axios.post('/api/checkout', {
+        lineItems: products.map((product) => ({
+          price: product.price_id,
+          quantity: product.quantity,
+        })),
+      })
+
+      const { checkouUrl } = response.data
+      window.location.href = checkouUrl
+      setIsCreatingCheckoutSession(true)
+      clearCart()
+    } catch (err) {
+      // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
+      setIsCreatingCheckoutSession(false)
+      alert('Falha ao redirecionar ao checkout!')
+    }
   }
-  // console.log(cartDetails)
 
   return (
     <Dialog.Portal>
@@ -57,7 +70,7 @@ export default function BagModal() {
         </CloseButton>
 
         <BagContainer>
-          {Object.values(cartDetails ?? {}).map((product) => (
+          {products.map((product) => (
             <BagProduct key={product.id}>
               <ImageContainer>
                 {product.image === undefined ? (

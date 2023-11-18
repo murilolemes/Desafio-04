@@ -74,7 +74,12 @@ export default function Home({ products }: HomeProps) {
               <FooterProduct>
                 <div>
                   <strong>{product.name}</strong>
-                  <span>{product.price}</span>
+                  <span>
+                    {new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(product.price / 100)}
+                  </span>
                 </div>
                 <ButtonAddBag addProduct={product} />
               </FooterProduct>
@@ -127,7 +132,3 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 60 * 60 * 2, // 2hours
   }
 }
-// new Intl.NumberFormat('pt-BR', {
-//   style: 'currency',
-//   currency: 'BRL',
-// }).format(Number(price.unit_amount) / 100),
