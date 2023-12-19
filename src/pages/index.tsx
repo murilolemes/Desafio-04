@@ -9,20 +9,12 @@ import { stripe } from '@/lib/stripe'
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 
-import Arrow from './components/Arrow'
-import ButtonAddBag from './components/ButtonAddBag'
+import Arrow from '@/components/Arrow'
+import ButtonAddBag from '@/components/ButtonAddBag'
 
 import { FooterProduct, HomeContainer, Product } from '@/styles/pages/home'
 
-interface HomeProps {
-  products: {
-    id: string
-    name: string
-    imageUrl: string
-    price: number
-    priceId: string
-  }[]
-}
+import { HomeProps } from '@/utils/productsInterface'
 
 export default function Home({ products }: HomeProps) {
   const [currentSlider, setCurrentSlider] = useState(0)
@@ -121,7 +113,7 @@ export const getStaticProps: GetStaticProps = async () => {
       name: product.name,
       imageUrl: product.images[0],
       price: price.unit_amount,
-      priceId: price.id,
+      defaultPriceId: price.id,
     }
   })
 

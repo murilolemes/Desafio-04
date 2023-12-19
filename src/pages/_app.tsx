@@ -2,7 +2,7 @@ import { AppProps } from 'next/app'
 
 import { globalStyles } from '@/styles/global'
 import { Container } from '@/styles/pages/app'
-import Layout from './Layout'
+import Layout from '@/Layout'
 import { CartProvider } from 'use-shopping-cart'
 
 globalStyles()

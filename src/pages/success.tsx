@@ -6,6 +6,7 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 
 import { ImageContainer, SuccessContainer } from '@/styles/pages/success'
+import { useShoppingCart } from 'use-shopping-cart'
 
 interface SuccessProps {
   customerName: string
@@ -17,6 +18,16 @@ interface SuccessProps {
 }
 
 export default function Success({ customerName, products }: SuccessProps) {
+  const cart = useShoppingCart()
+
+  const { clearCart, cartDetails } = cart
+
+  const listProducts = Object.values(cartDetails ?? {})
+
+  if (listProducts.length > 0) {
+    clearCart()
+  }
+
   const quantity = products.reduce(
     (acc, accumulator) => {
       const quantity = accumulator.quantity

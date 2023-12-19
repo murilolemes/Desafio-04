@@ -13,24 +13,7 @@ import {
   ProductDetails,
 } from '@/styles/pages/product'
 
-interface Product {
-  id: string
-  name: string
-  imageUrl: string
-  price: number
-  defaultPriceId: string
-}
-
-interface ProductProps {
-  product: {
-    id: string
-    name: string
-    imageUrl: string
-    price: number
-    description: string
-    defaultPriceId: string
-  }
-}
+import { Product, ProductProps } from '@/utils/productsInterface'
 
 export default function Product({ product }: ProductProps) {
   const { addItem } = useShoppingCart()

@@ -23,8 +23,7 @@ export default function BagModal() {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false)
 
-  const { formattedTotalPrice, cartCount, cartDetails, removeItem, clearCart } =
-    cart
+  const { formattedTotalPrice, cartCount, cartDetails, removeItem } = cart
 
   const products = Object.values(cartDetails ?? {})
 
@@ -48,7 +47,6 @@ export default function BagModal() {
       const { checkouUrl } = response.data
       window.location.href = checkouUrl
       setIsCreatingCheckoutSession(true)
-      clearCart()
     } catch (err) {
       // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
       setIsCreatingCheckoutSession(false)
